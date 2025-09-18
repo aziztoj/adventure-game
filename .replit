@@ -7,11 +7,11 @@ entrypoint = "main.py"
 # A list of globs that specify which files and directories should
 # be hidden in the workspace.
 hidden = ["venv", ".config", "**/__pycache__", "**/.mypy_cache", "**/*.pyc"]
-modules = ["python-3.8"]
+modules = ["python-3.8", "nix"]
 
 # Specifies which nix channel to use when building the environment.
 [nix]
-channel = "stable-21_11"
+channel = "stable-25_05"
 packages = ["gdb"]
 
 [env]
@@ -28,3 +28,26 @@ requiredFiles = [".replit", "replit.nix", ".config", "venv"]
 
 [agent]
 expertMode = true
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Rock Paper Scissors Game"
+
+[[workflows.workflow]]
+name = "Rock Paper Scissors Game"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python main.py"
+
+[workflows.workflow.metadata]
+outputType = "console"
